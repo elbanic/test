@@ -1,0 +1,27 @@
+{% include "base.html" %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<body onload="pencil()">
+    <p align="center">
+    <canvas id="paint" width="750" height="450" style="border: 5px solid #000000;">Update your browser to support HTML5 Canvas</canvas>
+    </p>
+    <fieldset id="colorset" style="height: 80px; width: 400px;">
+	<label># of People </label><input id="fname" type="text"><button id="save" onclick="save()">Save</button>
+	<table>
+	    <tr>
+		<td><button style="height: 20px; width: 80px;" onclick="fill()">START</button>
+	    </tr>
+	    <tr>
+		<td><button style="height: 20px; width: 80px" onclick="outline()">RESET</button>
+	    </tr>
+	</table>
+    </fieldset>
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    {% load static %}
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}
+
+
