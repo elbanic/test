@@ -2,8 +2,13 @@
   margin:auto;
 }
 
-fieldset{
+fieldset {
   border: 1px solid rgb(0,0,200);
   width: 400px;
-  margin:auto;
+  margin: auto;
+  display: flex;
+}
+
+fieldset label{
+    margin:auto;
 }

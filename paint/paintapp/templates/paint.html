@@ -4,24 +4,74 @@
 
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-<body onload="pencil()">
+<body>
     <p align="center">
-    <canvas id="paint" width="750" height="450" style="border: 5px solid #000000;">Update your browser to support HTML5 Canvas</canvas>
+    <canvas id="paint" width="750" height="400" style="border: 5px solid #000000;">Update your browser to support HTML5 Canvas</canvas>
     </p>
-    <fieldset id="colorset" style="height: 80px; width: 400px;">
-	<label># of People </label><input id="fname" type="text"><button id="save" onclick="save()">Save</button>
-	<table>
-	    <tr>
-		<td><button style="height: 20px; width: 80px;" onclick="fill()">START</button>
-	    </tr>
-	    <tr>
-		<td><button style="height: 20px; width: 80px" onclick="outline()">RESET</button>
-	    </tr>
-	</table>
+    <fieldset id="colorset" style="height: 100px; width: 400px;">
+		<table align="center">
+			<tr align="center">
+				<td>
+					<label align="center"><font face="verdana">People Count : </font></label>
+					<input id="pcnt" type="text" style="width: 40px;">
+				</td>
+			</tr>
+			<tr align="center">
+				<td><button style="height: 20px; width: 80px;" id="ready" onclick="bt_ready()">READY</button></td>
+			</tr>
+			<tr align="center">
+				<td><button style="height: 20px; width: 80px;" id="start" onclick="bt_start()">START</button>
+                <button style="height: 20px; width: 40px;" id="next" onclick="bt_next()">></button></td>
+			</tr>
+			<tr align="center">
+				<td><button style="height: 20px; width: 80px" id="review" onclick="bt_review()">REVIEW</button></td>
+			</tr>
+		</table>
     </fieldset>
 <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
     {% load static %}
 <script src="{% static 'js/script.js' %}"></script>
+<script>
+	function bt_ready(){
+		var pcnt = document.getElementById("pcnt").value;
+		var canvas = document.getElementById("paint");
+		var ctx = canvas.getContext("2d");
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		var ladder_info = {
+            mat: 0,
+            points: 0,
+            x: 0,
+            y: 0,
+        };
+		$.ajax({
+			url: "ready/",
+			type: "post",
+			data: { people_cnt: pcnt, w: canvas.width, h: canvas.height},
+			success: function(data) {
+				ladder_info.mat = data.mat;
+				ladder_info.points = data.points;
+				ladder_info.x = data.x;
+				ladder_info.y = data.y;
+
+			    draw_ladder(ladder_info, -1);
+			}
+		});
+	}
+
+	function bt_start(){
+		next();
+	}
+    function bt_next(){
+		next();
+	}
+    function bt_review(){
+        var canvas = document.getElementById("paint");
+		var ctx = canvas.getContext("2d");
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		draw_cur_ladder();
+	}
+    function bt_reset(){
+        bt_ready();
+	}
+</script>
 {% endblock %}
-
-

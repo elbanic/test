@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from paintapp.views import paint
+from paintapp.views import paint, start, ready
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', paint),
+    url(r'^start/$', start),
+    url(r'^ready/$', ready),
 ]
